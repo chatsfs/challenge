@@ -30,58 +30,49 @@ export class GildedRose {
     return this.items;
   }
   updateItem(item: Item) {
-    if (!this.ignoreUpdates(item)) {
-      this.updateItemQuality(item);
-      this.updateItemSellIn(item);
+    if (item.name === Names.SULFURAS) return;
+
+    const isExpired = item.sellIn <= 0 ? true : false;
+    let changeRate = this.getChangeRate(item, isExpired);
+    const doesDegrade =
+      item.name != Names.BACKSTAGE_PASS && item.name != Names.BRIE;
+
+    if (doesDegrade) changeRate *= -1;
+    this.updateItemQuality(item, changeRate);
+    this.updateItemSellIn(item);
+  }
+
+  getChangeRate(item: Item, isExpired: boolean): number {
+    const baseRate = isExpired ? 2 : 1;
+    return item.name == Names.CONJURED ? 2 * baseRate : baseRate;
+  }
+
+  updateItemQuality(item: Item, changeRate: number) {
+    this.changeQuality(item, changeRate);
+    this.changeBackstageQuality(item);
+  }
+  changeBackstageQuality(item: Item) {
+    if (item.name == Names.BACKSTAGE_PASS) {
+      if (item.sellIn < 11) {
+        this.changeQuality(item, 1);
+      }
+      if (item.sellIn < 6) {
+        this.changeQuality(item, 1);
+      }
+
+      if (item.sellIn <= 0) {
+        item.quality = 0;
+      }
     }
   }
 
-  ignoreUpdates(item): boolean {
-    let flag = false;
-    if (item.name === Names.SULFURAS) {
-      flag = true;
-    }
-    return flag;
+  changeQuality(item: Item, delta: number) {
+    if (item.quality + delta >= 50) item.quality = 50;
+    else if (item.quality + delta <= 0) item.quality = 0;
+    else item.quality += delta;
   }
-  updateItemQuality(item: Item) {
-    if (item.name != Names.BRIE && item.name != Names.BACKSTAGE_PASS) {
-      if (item.quality > 0) {
-        item.quality = item.quality - 1;
-      }
-    } else {
-      if (item.quality < 50) {
-        item.quality = item.quality + 1;
-        if (item.name == Names.BACKSTAGE_PASS) {
-          if (item.sellIn < 11) {
-            if (item.quality < 50) {
-              item.quality = item.quality + 1;
-            }
-          }
-          if (item.sellIn < 6) {
-            if (item.quality < 50) {
-              item.quality = item.quality + 1;
-            }
-          }
-        }
-      }
-    }
-  }
+
   updateItemSellIn(item: Item) {
-    item.sellIn = item.sellIn - 1;
-    if (item.sellIn < 0) {
-      if (item.name != Names.BRIE) {
-        if (item.name != Names.BACKSTAGE_PASS) {
-          if (item.quality > 0) {
-            item.quality = item.quality - 1;
-          }
-        } else {
-          item.quality = item.quality - item.quality;
-        }
-      } else {
-        if (item.quality < 50) {
-          item.quality = item.quality + 1;
-        }
-      }
-    }
+    item.sellIn--;
   }
 }
