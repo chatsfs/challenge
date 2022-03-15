@@ -43,3 +43,4 @@ Just for clarification, an item can never have its Quality increase above 50, ho
 legendary item and as such its Quality is 80 and it never alters.
 
 - Run the tests with npm test
+- Run the app with npm start

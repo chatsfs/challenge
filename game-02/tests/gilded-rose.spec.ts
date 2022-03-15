@@ -1,6 +1,7 @@
 const assert = require("assert");
 const { expect } = require("chai");
-const { GildedRose, Item, Names } = require("../app/gilded-rose");
+import { GildedRose, Names } from "../app/gilded-rose";
+import { Item } from "../app/Item.class";
 
 function assertItemEq(actual, expected) {
   expect(actual.name).to.be.eq(expected.name);
