@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var assert = require("assert");
 var expect = require("chai").expect;
 var gilded_rose_1 = require("../app/gilded-rose");
-var Item_class_1 = require("../app/Item.class");
+var Item_class_1 = require("../app/entities/Item.class");
 function assertItemEq(actual, expected) {
     expect(actual.name).to.be.eq(expected.name);
     expect(actual.sellIn).to.be.eq(expected.sellIn);

@@ -1,12 +1,12 @@
-import { Item } from "./Item.class";
-import { BaseItems } from "./base.abstract";
-import { BaseItem } from "./BaseItem.class";
+import { Item } from "./entities/Item.class";
+import { BaseItems } from "./entities/base.abstract";
+import { BaseItem } from "./entities/BaseItem.class";
 import {
   BackstageItem,
   BrieItem,
   ConjuredItem,
   SulfurasItem,
-} from "./CustomItems.class";
+} from "./entities/CustomItems.class";
 
 export enum Names {
   BRIE = "Aged Brie",

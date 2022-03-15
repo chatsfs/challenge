@@ -1,5 +1,5 @@
 import { Item } from "./Item.class";
-import { LimitsGildenRoseQuality } from "./gilded-rose";
+import { LimitsGildenRoseQuality } from "../gilded-rose";
 
 export interface IBaseItem {
   item: Item;
