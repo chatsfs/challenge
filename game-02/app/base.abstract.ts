@@ -2,8 +2,6 @@ import { Item } from "./item.class";
 
 interface IBaseItems {
   getItems: () => Array<Item>;
-  updateItemSellIn: (item: Item, newValue: number) => void;
-  updateItemQuality: (item: Item, newValue: number) => void;
   updateQuality: () => void;
 }
 
@@ -25,13 +23,5 @@ export abstract class BaseItems implements IBaseItems {
       this.updateItem(this.items[i]);
     }
     return this.items;
-  };
-
-  updateItemSellIn = (item: Item, newValue: number) => {
-    item.sellIn = newValue;
-  };
-
-  updateItemQuality = (item: Item, newValue: number) => {
-    item.quality = newValue;
   };
 }
