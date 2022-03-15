@@ -3,9 +3,9 @@ const target = 19;
 
 type result = [number, number];
 
-function findPair(pool: number[], target: number): result {
+function findPair(pool: number[], target: number): result | boolean {
   let tempMap = {};
-  let result: result = [0, 0];
+  let result: result | boolean = false;
   for (let i = 0; i < pool.length; i++) {
     if (tempMap[pool[i]]) {
       result = [target - pool[i], pool[i]];
